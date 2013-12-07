@@ -1,0 +1,9 @@
+.graph {
+    margin: 0 auto;
+    width: 800px;
+    height: 500px;
+}
+
+.graph line{
+    stroke: #2B2B2B;
+}
