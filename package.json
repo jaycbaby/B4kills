@@ -1,0 +1,15 @@
+{
+  "name": "lol-data-visualization",
+  "version": "0.0.1",
+  "description": "league of legends data visualization",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Patrick Costanzo",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "express": "~3.4.6",
+    "underscore": "~1.5.2"
+  }
+}

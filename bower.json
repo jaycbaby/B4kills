@@ -1,0 +1,16 @@
+{
+  "name": "lol-data-visualization",
+  "version": "0.0.1",
+  "authors": [
+    "Patrick <costanzo.patrick@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
