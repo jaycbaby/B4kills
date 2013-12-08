@@ -12,5 +12,12 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "homepage": "https://github.com/jaycbaby/B4kills",
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "underscore": "~1.5.2",
+    "d3": "~3.3.11",
+    "bootstrap": "~3.0.3"
+  }
 }
