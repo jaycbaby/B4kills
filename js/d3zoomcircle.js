@@ -25,7 +25,7 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin + "," + margin + ")");
 
-d3.json("flare.json", function(error, root) {
+d3.json("../desiredoutput.json", function(error, root) {
   var focus = root,
       nodes = pack.nodes(root);
 
