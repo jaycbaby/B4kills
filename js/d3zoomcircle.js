@@ -1,6 +1,8 @@
 var stats;
 var weapons;
+var weaponCategories = [];
 var vehicles;
+
 var weaponStats = {};
 
 var dataset = {
@@ -37,7 +39,7 @@ $.ajax({
     stats = data;
     weapons = data.weapons;
     vehicles = data.vehicles;
-    console.log(stats);
+    parseData(weapons);
   },
 
   error: function(error){
@@ -46,19 +48,39 @@ $.ajax({
 
 });
 
-_.each(weapons, function(weapon){
-  var category = weapon.detail.category;
-  var weaponName = weapon.detail.name;
-  var weaponKills = weapon.stat.kills;
+function parseData(weapons){
+  _.each(weapons, function(weapon){
+    var category = weapon.detail.category;
+    var weaponName = weapon.detail.name;
+    var weaponKills = weapon.stat.kills;
+    var categoryIndex;
 
-  
+    if (weaponKills > 0) {
+      categoryIndex = _.indexOf(weaponCategories, category);
+      if (categoryIndex === -1) {
+        weaponCategories.push(category);
+        categoryIndex = weaponCategories.length - 1;
+        addCategory(category);
+      }
+      addWeapon(category, categoryIndex, weaponName, weaponKills);
+    }
+  });
 
-  // Loop through dataset.children array to check whether or not this category already exists
+}
 
-  // if it exists, continue and add the weapon kills to the children array for that category
+function addCategory(category){
+  dataset.children[0].children.push({
+    "name": category,
+    "children": []
+  });
+}
 
-  // if it doesnt exist, create the category and children and then add the weapon kills to the children array for that category
-});
+function addWeapon(category, categoryIndex, weaponName, weaponKills){
+  dataset.children[0].children[categoryIndex].children.push({
+    "name": weaponName,
+    "size": weaponKills
+  });
+}
 
 
 var margin = 10,
