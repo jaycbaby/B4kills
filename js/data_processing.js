@@ -2,6 +2,8 @@
 // will will be populated via AJAX request in the
 // document ready function.
 var leaguedata;
+    var health = [];
+    var names = [];
 
 // TODO: filter champion list by type so that you can compare mages, fighters, marksman...etc.
 
@@ -31,8 +33,7 @@ $(document).ready(function(){
 
 function processData(data){
     // data arrays
-    var health = [];
-    var names = [];
+
 
     // svg canvas size
     var w = 800;
@@ -48,11 +49,12 @@ function processData(data){
                         .domain([0, names.length])
                         .range([0, w]);
     var yScale = d3.scale.linear()
-                        .domain([d3.min(health), d3.max(health)]);
+                        .domain([d3.min(health), d3.max(health)])
+                        .range([0, h]);
     // line generator
-    // line = d3.svg.line()
-    //                     .xScale(function(d,i) {return x(i);})
-    //                     .yScale(function(d) {return -1 * y(d);});
+    line = d3.svg.line()
+            .x(function(d,i) {return x(i);})
+            .y(function(d) {return -1 * y(d);});
 
     // var vis = d3.select(".graph").select("svg").select("graph");
 
@@ -73,6 +75,9 @@ function processData(data){
             // .attr("y1", -1 * yScale(0))
             // .attr("x2", xScale(w))
             // .attr("y2", -1 * yScale(0));
+
+        g.append("svg:path")
+            .attr("d", line(health));
 }
 
 // 
