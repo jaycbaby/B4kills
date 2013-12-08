@@ -1,3 +1,65 @@
+var stats;
+var weapons;
+var vehicles;
+var weaponStats = {};
+
+var dataset = {
+  "name": "Battefield Player Stats",
+  "children": [{
+    "name": "Weapons",
+    "children": [
+    // Categories will be created here
+    // and nested children will be created underneath
+    // them to contain invidual weapon names and kills
+    ]
+  },
+  {
+    "name": "Vehicles",
+    "children": [
+    // Categories will be created here
+    // and nested children will be created underneath
+    // them to contain invidual weapon names and kills
+    ]
+  }
+  ]
+};
+
+$.ajax({
+
+  type: "GET",
+
+  url: "http://api.bf4stats.com/api/playerInfo?plat=ps4&name=AELIUZ",
+
+  dataType: "json",
+
+  success: function(data){
+    console.log("AJAX SUCCESS");
+    stats = data;
+    weapons = data.weapons;
+    vehicles = data.vehicles;
+    console.log(stats);
+  },
+
+  error: function(error){
+    console.warn(error);
+  }
+
+});
+
+_.each(weapons, function(weapon){
+  var category = weapon.detail.category;
+  var weaponName = weapon.detail.name;
+  var weaponKills = weapon.stat.kills;
+
+  
+
+  // Loop through dataset.children array to check whether or not this category already exists
+
+  // if it exists, continue and add the weapon kills to the children array for that category
+
+  // if it doesnt exist, create the category and children and then add the weapon kills to the children array for that category
+});
+
 
 var margin = 10,
     outerDiameter = 960,
@@ -17,7 +79,7 @@ var color = d3.scale.linear()
 var pack = d3.layout.pack()
     .padding(2)
     .size([innerDiameter, innerDiameter])
-    .value(function(d) { return d.size; })
+    .value(function(d) { return d.size; });
 
 var svg = d3.select("body").append("svg")
     .attr("width", outerDiameter)
@@ -28,6 +90,8 @@ var svg = d3.select("body").append("svg")
 d3.json("../desiredoutput.json", function(error, root) {
   var focus = root,
       nodes = pack.nodes(root);
+
+      console.dir(root);
 
   svg.append("g").selectAll("circle")
       .data(nodes)
