@@ -9,17 +9,15 @@
 //desired JSON output example
 {
  "user": "",
- "weapons": [
+ "kills": [
   {
-   "weaponname": "AK47",
+   "name": "Weapons",
    "children": [
     {
-     "name": "cluster",
+     "name": "Weapons",
      "children": [
-      {"name": "AgglomerativeCluster", "size": 3938},
-      {"name": "CommunityStructure", "size": 3812},
-      {"name": "HierarchicalCluster", "size": 6714},
-      {"name": "MergeEdge", "size": 743}
+      {"name": "Weapon1", "size": 3938},
+      {"name": "Weapon2", "size": 3812}
      ]
     },
     {
