@@ -15,23 +15,22 @@
         <a class="navbar-brand" href="#">BATTLEFIELD 4 KILL VISUALIZER</a>
       </div>
       <div>
-        <form class="navbar-form navbar-right" role="form">
+        <form id="form" class="navbar-form navbar-right" role="form">
           <div class="form-group">
             <select name="platform" id="game-platform" class="btn btn-default dropdown-toggle" default="pc">
-                <option value="xbox" selected>Xbox One</option>
+                <option value="xone" selected>Xbox One</option>
+                <option value="xbox">Xbox 360</option>
                 <option value="ps4">PS4</option>
                 <option value="ps3">PS3</option>
                 <option value="pc">PC</option>
             </select>            
-            <input type="text" placeholder="GAMERTAG" class="form-control">
+            <input id="input" type="text" placeholder="ID or GAMERTAG" class="form-control">
           </div>
           <button type="submit" class="btn btn-success">VISUALIZE</button>
         </form>
       </div><!--/.navbar-collapse -->
     </div>
   </div>
-
-
 
 
   <script src="bower_components/jquery/jquery.js"></script>

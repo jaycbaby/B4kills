@@ -13,38 +13,34 @@ var dataset = {
 };
 
 $(document).ready(function(){
+    $("#form").submit(function(event) {
+        var text = $(this).text();
+        //stores userID
+        var userID = $('#input').val();
+        //stores selected platform
+        var plat = $('#game-platform :selected').val();
+ 
+        $.ajax({
+            type: "GET",
+            url: "http://api.bf4stats.com/api/playerInfo?plat=" + plat + "&name=" + userID,
+            dataType: "json",
+          // Visualize data on success
+            success: function(data){
+              var stats = data;
+              var weapons = data.weapons;
+              var vehicles = data.vehicles;
+              parseData(weapons);
+              parseVehicleData(vehicles);
+              visualize(dataset);
+            },
+            error: function(error){
+              console.warn(error);
+            }
+            });
+ 
+    event.preventDefault();
+    });
 
-
-
-$("form").on("submit", function(e){
-  e.preventDefault();
-  console.log(e);
-});
-
-// AJAX call for stats
-
-$.ajax({
-  type: "GET",
-  url: "http://api.bf4stats.com/api/playerInfo?plat=ps4&name=AELIUZ",
-  dataType: "json",
-
-  // Visualize data on success
-
-  success: function(data){
-    var stats = data;
-    var weapons = data.weapons;
-    var vehicles = data.vehicles;
-
-    parseData(weapons);
-    parseVehicleData(vehicles);
-    visualize(dataset);
-  },
-
-  error: function(error){
-    console.warn(error);
-  }
-
-});
 
 // ***** Data functions
 
