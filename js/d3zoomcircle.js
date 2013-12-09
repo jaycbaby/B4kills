@@ -1,6 +1,143 @@
+// Empty dataset for D3 processing
+var dataset = {
+  "name": "Battefield Player Stats",
+  "children": [{
+    "name": "Weapons",
+    "children": []
+  },
+  {
+    "name": "Vehicles",
+    "children": []
+  }
+  ]
+};
+
+$(document).ready(function(){
+
+
+
+$("form").on("submit", function(e){
+  e.preventDefault();
+  console.log(e);
+});
+
+// AJAX call for stats
+
+$.ajax({
+  type: "GET",
+  url: "http://api.bf4stats.com/api/playerInfo?plat=ps4&name=AELIUZ",
+  dataType: "json",
+
+  // Visualize data on success
+
+  success: function(data){
+    var stats = data;
+    var weapons = data.weapons;
+    var vehicles = data.vehicles;
+
+    parseData(weapons);
+    parseVehicleData(vehicles);
+    visualize(dataset);
+  },
+
+  error: function(error){
+    console.warn(error);
+  }
+
+});
+
+// ***** Data functions
+
+// Parse AJAX data into D3 visualization format
+// as per the empty dataset above
+
+function parseData(weapons){
+
+  var weaponCategories = [];
+
+  _.each(weapons, function(weapon){
+    var category = weapon.detail.category;
+    var weaponName = weapon.detail.name;
+    var weaponKills = weapon.stat.kills;
+    var categoryIndex;
+
+    if (weaponKills > 0) {
+      categoryIndex = _.indexOf(weaponCategories, category);
+      if (categoryIndex === -1) {
+        weaponCategories.push(category);
+        categoryIndex = weaponCategories.length - 1;
+        addCategory(category);
+      }
+      addWeapon(category, categoryIndex, weaponName, weaponKills);
+    }
+  });
+}
+
+// Add a weapon category to the dataset
+
+function addCategory(category){
+  dataset.children[0].children.push({
+    "name": category,
+    "children": []
+  });
+}
+
+// Add a weapon and kills to the dataset
+
+function addWeapon(category, categoryIndex, weaponName, weaponKills){
+  dataset.children[0].children[categoryIndex].children.push({
+    "name": weaponName,
+    "size": weaponKills
+  });
+}
+
+
+// TODO: Refactor
+function parseVehicleData(vehicles){
+
+  var vehicleCategories = [];
+
+  _.each(vehicles, function(vehicle){
+    var category = vehicle.detail.category;
+    var vehicleName = vehicle.detail.name;
+    var vehicleKills = vehicle.stat.kills;
+    var categoryIndex;
+
+    if (vehicleKills > 0) {
+      categoryIndex = _.indexOf(vehicleCategories, category);
+      if (categoryIndex === -1) {
+        vehicleCategories.push(category);
+        categoryIndex = vehicleCategories.length - 1;
+        addVehicleCategory(category);
+      }
+      addVehicle(category, categoryIndex, vehicleName, vehicleKills);
+    }
+  });
+}
+
+// Add a weapon category to the dataset
+
+function addVehicleCategory(category){
+  dataset.children[1].children.push({
+    "name": category,
+    "children": []
+  });
+}
+
+// Add a weapon and kills to the dataset
+
+function addVehicle(category, categoryIndex, vehicleName, vehicleKills){
+  dataset.children[1].children[categoryIndex].children.push({
+    "name": vehicleName,
+    "size": vehicleKills
+  });
+}
+
+
+// ***** D3
 
 var margin = 10,
-    outerDiameter = 960,
+    outerDiameter = 760,
     innerDiameter = outerDiameter - margin - margin;
 
 var x = d3.scale.linear()
@@ -17,15 +154,16 @@ var color = d3.scale.linear()
 var pack = d3.layout.pack()
     .padding(2)
     .size([innerDiameter, innerDiameter])
-    .value(function(d) { return d.size; })
+    .value(function(d) { return d.size; });
 
+// TODO: Change this so that it is appending into the appropriate area on the page
 var svg = d3.select("body").append("svg")
     .attr("width", outerDiameter)
     .attr("height", outerDiameter)
   .append("g")
     .attr("transform", "translate(" + margin + "," + margin + ")");
 
-d3.json("../desiredoutput.json", function(error, root) {
+function visualize(root) {
   var focus = root,
       nodes = pack.nodes(root);
 
@@ -72,6 +210,8 @@ d3.json("../desiredoutput.json", function(error, root) {
         .each("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
         .each("end", function(d) { if (d.parent !== focus) this.style.display = "none"; });
   }
-});
+}
 
 d3.select(self.frameElement).style("height", outerDiameter + "px");
+
+});

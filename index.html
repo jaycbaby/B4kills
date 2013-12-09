@@ -1,41 +1,43 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<style>
-
-.node {
-  cursor: pointer;
-}
-
-.node:hover {
-  stroke: #000;
-  stroke-width: 1.5px;
-}
-
-.node--root {
-  stroke: #777;
-  stroke-width: 2px;
-}
-
-.node--leaf {
-  fill: white;
-}
-
-.label {
-  font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-anchor: middle;
-  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
-}
-
-.label,
-.node--root,
-.node--leaf {
-  pointer-events: none;
-}
-
-</style>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Battlefield 4 Kill Visualization</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+<!--   <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
 <body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
-<script type="text/javascript" src="js/d3zoomcircle.js"></script>
+
+  <div class="navbar navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">BATTLEFIELD 4 KILL VISUALIZER</a>
+      </div>
+      <div>
+        <form class="navbar-form navbar-right" role="form">
+          <div class="form-group">
+            <select name="platform" id="game-platform" class="btn btn-default dropdown-toggle" default="pc">
+                <option value="xbox" selected>Xbox One</option>
+                <option value="ps4">PS4</option>
+                <option value="ps3">PS3</option>
+                <option value="pc">PC</option>
+            </select>            
+            <input type="text" placeholder="GAMERTAG" class="form-control">
+          </div>
+          <button type="submit" class="btn btn-success">VISUALIZE</button>
+        </form>
+      </div><!--/.navbar-collapse -->
+    </div>
+  </div>
+
+
+
+
+  <script src="bower_components/jquery/jquery.js"></script>
+  <script src="bower_components/d3/d3.js"></script>
+  <script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
+  <script type="text/javascript" src="js/d3zoomcircle.js"></script>
+
 </body>
 </html>
