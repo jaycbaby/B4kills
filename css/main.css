@@ -5,6 +5,7 @@
 body {
     font-family: Roboto, Helvetica, sans-serif;
     margin-top: 50px;
+    background: url(../img/bg.png);
 }
 
 svg {
@@ -42,3 +43,40 @@ svg {
 .node--leaf {
   pointer-events: none;
 }
+
+.custom-navbar {
+    border-bottom: 1px solid black;
+    background-color: white;
+}
+
+.main-container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.main-container .billboard {
+    width: 960px;
+    margin: 0 auto;
+    margin-top: 80px;
+    padding-right: 60px;
+    padding-left: 60px;
+    border-radius: 6px;
+    padding: 30px;
+    margin-bottom: 30px;
+    font-size: 21px;
+    font-weight: 200;
+    line-height: 2.1428571435;
+    color: inherit;
+    background-color: #EEE;
+}
+
+.load-spinner {
+    display: none;
+    width: 92px;
+    height: 92px;
+    margin: 0 auto;
+    background: url(../img/spinner.gif);
+}
+
